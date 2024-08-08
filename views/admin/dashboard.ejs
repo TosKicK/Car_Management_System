@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <h2>Car List</h2>
+  <ul>
+    <% cars.forEach(car => { %>
+      <li>
+        <strong>Name:</strong> <%= car.carName %> |
+        <strong>Year:</strong> <%= car.manufacturingYear %> |
+        <strong>Price:</strong> $<%= car.price %>
+        <form action="/admin/car/<%= car._id %>/update" method="POST">
+          <input type="text" name="carName" value="<%= car.carName %>" required>
+          <input type="number" name="manufacturingYear" value="<%= car.manufacturingYear %>" required>
+          <input type="number" name="price" value="<%= car.price %>" required>
+          <button type="submit">Update</button>
+        </form>
+        <form action="/admin/car/<%= car._id %>/delete" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+  <h2>Add New Car</h2>
+  <form action="/admin/car" method="POST">
+    <label for="carName">Car Name:</label>
+    <input type="text" id="carName" name="carName" required>
+    <label for="manufacturingYear">Manufacturing Year:</label>
+    <input type="number" id="manufacturingYear" name="manufacturingYear" required>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" required>
+    <button type="submit">Add Car</button>
+  </form>
+  <h2>Total Cars: <%= totalCars %></h2>
+</body>
+</html>
